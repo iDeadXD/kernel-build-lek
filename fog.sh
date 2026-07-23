@@ -25,7 +25,7 @@ KERNEL="$WORKDIR/rystx"
 # Cloning Sources
 #git clone --single-branch --depth=1 https://github.com/iDeadXD/ai-kernel_xiaomi_sm6225 -b kila-r-oc $KERNEL && cd $KERNEL
 cd $KERNEL
-export LOCALVERSION="-x3-GoreSched"
+export LOCALVERSION="-X2"
 
 # Bail out if script fails
 set -e
@@ -56,7 +56,7 @@ BASEDIR="$(basename "$KERNEL_DIR")"
 
 # PATCH KERNELSU & RELEASE VERSION
 KSU=1
-RELEASE=III
+RELEASE=II
 if [ $KSU = 1 ]
 then
 	#echo "CONFIG_KSU=y" >> arch/arm64/configs/vendor/"fog-perf_defconfig"
@@ -245,7 +245,7 @@ exports()
 	KBUILD_BUILD_USER=$AUTHOR
 	KBUILD_BUILD_HOST=$HOSTR
 	SUBARCH=$ARCH
-	CUSTOMSTR="[$KERNVER] rystX OpenSource //"
+	CUSTOMSTR="[$KERNVER] rystX OpenSource"
 
 	if [ $COMPILER = "clang" ]
 	then
