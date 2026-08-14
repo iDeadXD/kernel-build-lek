@@ -20,7 +20,7 @@
 
 # Kernel building script
 WORKDIR="$(pwd)"
-KERNEL="$WORKDIR/rystx"
+KERNEL="$WORKDIR/kunzite"
 cd $KERNEL
 clear
 export LOCALVERSION="-rE"
@@ -53,7 +53,7 @@ KERNEL_DIR="$(pwd)"
 BASEDIR="$(basename "$KERNEL_DIR")"
 
 # PATCH KERNELSU & RELEASE VERSION
-KSU=1
+KSU=0
 RELEASE=rE
 if [ $KSU = 1 ]
 then
@@ -88,7 +88,7 @@ DEVICE="fog"
 
 # The defconfig which should be used. Get it from config.gz from
 # your device or check source
-DEFCONFIG="vendor/bengal-perf_defconfig vendor/xiaomi/fog.config vendor/ksu.config"
+DEFCONFIG="raccoon_defconfig"
 
 # Specify compiler.
 # 'clang' or 'gcc'
@@ -220,10 +220,10 @@ clone()
 		TC_DIR=$KERNEL_DIR/clang-llvm
 	fi
 
-	if [ ! -d "AnyKernel3" ]; then
-		msger -n "|| Cloning Anykernel ||"
-		git clone --depth=1 https://github.com/iDeadXS/Ai-AnyKernel3 -b master AnyKernel3
-	fi
+	# if [ ! -d "anykernel" ]; then
+	# 	msger -n "|| Cloning Anykernel ||"
+	# 	git clone --depth=1 https://github.com/iDeadXS/Ai-AnyKernel3 -b master AnyKernel3
+	# fi
 
 	if [ $BUILD_DTBO = 1 ]
 	then
@@ -401,20 +401,20 @@ gen_zip()
 {
 	cd $KERNEL
 	msger -n "|| Zipping into a flashable zip ||"
-	mv "$KERNEL_DIR"/out/arch/arm64/boot/$FILES AnyKernel3/$FILES
+	mv "$KERNEL_DIR"/out/arch/arm64/boot/$FILES anykernel/$FILES
 	if [ $BUILD_DTBO = 1 ]
 	then
-		mv "$KERNEL_DIR"/out/arch/arm64/boot/dtbo.img AnyKernel3/dtbo.img
+		mv "$KERNEL_DIR"/out/arch/arm64/boot/dtbo.img anykernel/dtbo.img
 	fi
 
     if [ $BANNER_OVERWRITE = 1 ]; then
         echo "|| Waiting for new 'banner' file save... ||"
         code banner --wait
-        mv banner AnyKernel3/banner
+        mv banner anykernel/banner
         echo "|| Banner saved ||"
     fi
 
-	cdir AnyKernel3
+	cdir anykernel
 
 	## Prepare a final zip variable
 	ZIP_FINAL="$ZIPNAME-$DEVICE-$VER-$WAKTU"
